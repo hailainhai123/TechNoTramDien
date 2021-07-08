@@ -24,8 +24,8 @@ class EditDepartmentDialog extends StatefulWidget {
 }
 
 class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
-  static const UPDATE_KHOA = 'updatediadiem';
-  static const DELETE_KHOA = 'deletediadiem';
+  static const UPDATE_KHOA = 'updatetram';
+  static const DELETE_KHOA = 'deletetram';
 
   final scrollController = ScrollController();
   final nameController = TextEditingController();
@@ -45,8 +45,8 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
 
   void initController() async {
     nameController.text = widget.department.departmentDiachiDecode;
-    idController.text = widget.department.madiadiem;
-    sdtController.text = widget.department.sdtdiadiem;
+    idController.text = widget.department.matram;
+    sdtController.text = widget.department.sdttram;
 
   }
 
@@ -164,8 +164,8 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
                 new FlatButton(
                   onPressed: () {
                     pubTopic = DELETE_KHOA;
-                    var d = Department(widget.department.diachidiadiem,
-                        widget.department.madiadiem,widget.department.sdtdiadiem, Constants.mac);
+                    var d = Department(widget.department.diachitram,
+                        widget.department.matram,widget.department.sdttram, Constants.mac);
                     publishMessage(pubTopic, jsonEncode(d));
                   },
                   child: new Text(

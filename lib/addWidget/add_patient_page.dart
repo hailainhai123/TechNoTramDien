@@ -78,7 +78,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
         departments = response.id.map((e) => Department.fromJson(e)).toList();
         dropDownItems.clear();
         departments.forEach((element) {
-          dropDownItems.add(element.diachidiadiem);
+          dropDownItems.add(element.diachitram);
         });
         hideLoadingDialog();
         print('_DeviceListScreenState.handleDevice ${dropDownItems.length}');

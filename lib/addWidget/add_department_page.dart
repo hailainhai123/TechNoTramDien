@@ -55,7 +55,7 @@ class _AddDepartmentScreenState extends State<AddDepartmentScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Thêm khoa',
+          'Thêm trạm',
         ),
         centerTitle: true,
       ),
@@ -81,13 +81,13 @@ class _AddDepartmentScreenState extends State<AddDepartmentScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 buildTextField(
-                  'Mã địa điểm *',
+                  'Mã trạm *',
                   Icon(Icons.vpn_key),
                   TextInputType.visiblePassword,
                   idController,
                 ),
                 buildTextField(
-                  'Địa chỉ địa điểm ',
+                  'Địa chỉ trạm ',
                   Icon(Icons.email),
                   TextInputType.text,
                   nameController,
@@ -182,7 +182,7 @@ class _AddDepartmentScreenState extends State<AddDepartmentScreen> {
       sdtController.text,
       Constants.mac,
     );
-    publishMessage('registerdiadiem', jsonEncode(department));
+    publishMessage('registertram', jsonEncode(department));
   }
 
   @override

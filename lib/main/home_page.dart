@@ -293,7 +293,7 @@ class _HomePageState extends State<HomePage>
         departments = response.id.map((e) => Department.fromJson(e)).toList();
         dropDownItems.clear();
         departments.forEach((element) {
-          dropDownItems.add(element.madiadiem);
+          dropDownItems.add(element.matram);
         });
         hideLoadingDialog();
         print('_DeviceListScreenState.handleDevice ${dropDownItems.length}');

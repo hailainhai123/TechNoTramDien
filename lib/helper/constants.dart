@@ -40,24 +40,38 @@ const Color FORE_TEXT_COLOR = BACKGROUND_COLOR;
 final String server_uri_key = 'serverUri';
 
 // final String serverUri = "45.119.82.186";
-final String serverUri = "192.168.1.237";
+// final String serverUri = "192.168.1.237";
+// final String serverUri = "192.168.137.1";
+final String serverUri = "103.237.145.184";
 // final String serverUri = "192.168.2.6";
 // final int port = 1234;
 // final int port = 4567;
+//  final int port = 6789;
  final int port = 6789;
-const GET_DEVICE = 'gettbmadiadiem';
+const GET_DEVICE = 'gettbmatram';
 final String login_topic = "loginuser";
 final String patient_login_topic = "loginbenhnhan";
 final String home_status = "statusnha";
+
 final String room_status = "statusphong";
 final String device_status = "statusphong";
-String mac = "02:00:00:00:00:00";
+// String mac = "02:00:00:00:00:00";
+String mac = "";
 
+const one_signal_app_id = '4d41403c-a29f-447b-a18c-730c42123b00';
+
+const UPDATE_USER = 'updateuser';
+const UPDATE_PARENT = 'updateph';
+const DELETE_PARENT = 'deleteph';
+const DELETE_USER = 'deleteuser';
+const CHANGE_PASSWORD_USER = 'updatepass';
+const CHANGE_PASSWORD_PARENT = 'updatepassph';
+const GET_INFO_USER = 'getinfouser';
+const GET_INFO_PARENT = 'getinfoph';
 const kPrimaryColor = Color(0xFF6F35A5);
 const kPrimaryLightColor = Color(0xFFF1E6FF);
 
 //OneSignal App ID
-const one_signal_app_id = 'b773c836-f58c-487d-894a-1fe536eda615';
 
 // Future<String> getId() async {
 //   DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();

@@ -73,10 +73,10 @@ class _EditDeviceDialogState extends State<EditDeviceDialog> {
 
   void initController() async {
     idController.text = widget.thietbi.matb;
-    currentSelectedValue = widget.thietbi.madiadiem;
+    currentSelectedValue = widget.thietbi.matram;
     timeController.text = widget.thietbi.thoigian;
     thresholdController.text = widget.thietbi.nguongcb;
-    vitriController.text = widget.thietbi.vitri;
+    vitriController.text = widget.thietbi.tu;
   }
 
   @override
@@ -147,7 +147,7 @@ class _EditDeviceDialogState extends State<EditDeviceDialog> {
         children: [
           Expanded(
             child: Text(
-              'Mã địa điểm',
+              'Mã trạm',
             ),
           ),
           Expanded(
@@ -162,7 +162,7 @@ class _EditDeviceDialogState extends State<EditDeviceDialog> {
     return Container(
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
-          hint: Text("Chọn địa điểm"),
+          hint: Text("Chọn trạm"),
           value: currentSelectedValue,
           isDense: true,
           onChanged: (newValue) {
@@ -254,12 +254,12 @@ class _EditDeviceDialogState extends State<EditDeviceDialog> {
                     pubTopic = DELETE_DEVICE;
                     var d = ThietBi(
                       widget.thietbi.matb,
-                      widget.thietbi.madiadiem,
+                      widget.thietbi.matram,
                       '',
                       '',
                       '',
                       Constants.mac,
-                      widget.thietbi.vitri,
+                      widget.thietbi.tu,
                     );
                     publishMessage(pubTopic, jsonEncode(d));
                   },

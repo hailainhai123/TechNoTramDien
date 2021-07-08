@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:clay_containers/widgets/clay_container.dart';
@@ -15,9 +16,9 @@ import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import '../helper/constants.dart' as Constants;
 
 class DetailScreen extends StatefulWidget {
-  final String madiadiem;
+  final String matram;
 
-  const DetailScreen({Key key, this.madiadiem}) : super(key: key);
+  const DetailScreen({Key key, this.matram}) : super(key: key);
 
   @override
   _DetailScreenState createState() => _DetailScreenState();
@@ -28,9 +29,14 @@ class _DetailScreenState extends State<DetailScreen> {
 
   final sharedPrefs = SharedPrefsHelper();
   List<ThietBi> tbs = List();
+  List<ThietBi> tbs2 = List();
+  LinkedHashSet<String> listtu = LinkedHashSet();
+  List<String> listtu2 = List();
+
   String email;
   String pubTopic;
   bool isLoading = true;
+  String trangthai;
 
   var dropDownProducts = [''];
   String _selectedProduct;
@@ -39,13 +45,17 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   void initState() {
+    // isLoading = false;
+    // tbs.add(ThietBi('TECHNO1', 'h1.32', 'Online', '50', 'thoigian', 'mac', 'Tu1'));
+    // tbs.add(ThietBi('TECHNO2', 'h1.32', 'Online', '60', 'thoigian', 'mac', 'Tu2'));
+
     getSharedPrefs();
     initMqtt();
     super.initState();
   }
 
   void getDevices() async {
-    ThietBi t = ThietBi('', widget.madiadiem, '', '', '', Constants.mac, '');
+    ThietBi t = ThietBi('', widget.matram, '', '', '', Constants.mac, '');
     // t.mathietbi = email;
     pubTopic = Constants.GET_DEVICE;
     publishMessage(pubTopic, jsonEncode(t));
@@ -125,6 +135,33 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 
+  Widget buildBody2() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                childAspectRatio: 0.85,
+                crossAxisSpacing: 2,
+                mainAxisSpacing: 2,
+              ),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return buildItem2(listtu2[index]);
+              },
+              itemCount: listtu2.length,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
   Widget buildItem(ThietBi tb) {
     return GestureDetector(
       onTap: () {
@@ -143,26 +180,107 @@ class _DetailScreenState extends State<DetailScreen> {
         ),
         child: Column(
           children: [
-            Text(tb.vitri,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: tb.color ?? Colors.black,
-                )),
-            SizedBox(height: 15),
-            // Text(
-            //   tb.nhietdo != null ? '${tb.nhietdo}\u2103' : '0\u2103',
-            // ),
+            Text(
+              tb.tu ?? "",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+            Text(
+              tb.matb ?? "",
+              style: TextStyle(
+                // fontWeight: FontWeight.bold,
+                color: tb.color ?? Colors.black,
+              ),
+            ),
+            // SizedBox(height: 10),
             sleek(tb.nhietdo ?? "0"),
-            // Image.asset(
-            //   'assets/icons/ic_scale.png',
-            //   width: 40,
-            //   height: 40,
-            //   fit: BoxFit.cover,
-            // ),
-            SizedBox(height: 10),
-            // Text(tb.can ?? '...'),
+            // SizedBox(height: 5),
+            Text(
+              tb.trangthai ?? 'offline',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                // color: tb.color ?? Colors.black,
+                color: Colors.black,
+              ),
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildItem2(String str) {
+    return GestureDetector(
+      onTap: () {
+        // navigatorPush(context, RollingDoor());
+        // getProducts();
+      },
+      behavior: HitTestBehavior.translucent,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+        margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(color: Colors.grey),
+          color: Colors.white,
+        ),
+        child: Column(
+          children: [
+            Text(str ?? "",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                )),
+            SizedBox(height: 10),
+            buildThietBi(),
+            SizedBox(height: 4),
+            buildThietBi(),
+            SizedBox(height: 4),
+            buildThietBi(),
+            // Text(
+            //   trangthai ?? 'offline',
+            //   style: TextStyle(
+            //     fontWeight: FontWeight.bold,
+            //     // color: tb.color ?? Colors.black,
+            //     color: Colors.black,
+            //   ),
+            // ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildThietBi() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(color: Colors.grey),
+        color: Colors.white,
+      ),
+      height: 30,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('MN1'),
+          SizedBox(
+            width: 5,
+          ),
+          verticalLine(),
+          SizedBox(
+            width: 5,
+          ),
+          Text('50'),
+          SizedBox(
+            width: 5,
+          ),
+          verticalLine(),
+          SizedBox(
+            width: 5,
+          ),
+          Text('offline'),
+        ],
       ),
     );
   }
@@ -180,6 +298,22 @@ class _DetailScreenState extends State<DetailScreen> {
     });
   }
 
+  Widget verticalLine() {
+    return Container(
+      height: double.infinity,
+      width: 1,
+      color: Colors.grey,
+    );
+  }
+
+  Widget horizontalLine() {
+    return Container(
+      height: 1,
+      width: double.infinity,
+      color: Colors.grey,
+    );
+  }
+
   Future<void> initMqtt() async {
     mqttClientWrapper =
         MQTTClientWrapper(() => print('Success'), (message) => handle(message));
@@ -187,16 +321,26 @@ class _DetailScreenState extends State<DetailScreen> {
 
     getDevices();
 
-    mqttClientWrapper.subscribe(widget.madiadiem, (_message) {
+    mqttClientWrapper.subscribe(widget.matram, (_message) {
       print('_DetailScreenState.initMqtt $_message');
       var result = _message.replaceAll("\"", "").split('&');
+      tbs.forEach((element) {
+        String str = result[2];
+        if (element.matb == result[0])
+        // element.trangthai = result[2];
+        if (str == '0') {
+          element.trangthai = 'offline';
+        } else if (str == '1') {
+          element.trangthai = 'online';
+        }
+      });
 
-      // var scaleResponse = scaleResponseFromJson(_message);
       tbs.forEach((element) {
         print('_DetailScreenState.initMqtt ${element.matb}');
         print('_DetailScreenState.initMqtt ${result[0]}');
         if (element.matb == result[0]) {
           element.nhietdo = result[1];
+          // element.trangthai = result[2];
           if (double.tryParse(element.nhietdo) >
               double.tryParse(element.nguongcb)) {
             element.color = Colors.red;
@@ -208,6 +352,11 @@ class _DetailScreenState extends State<DetailScreen> {
         } else {
           print('_DetailScreenState.initMqtt false');
         }
+        // if (element.trangthai == '0'){
+        //   element.trangthai = 'offline';
+        // } else {
+        //   element.trangthai = 'online';
+        // }
       });
     });
   }
@@ -227,6 +376,11 @@ class _DetailScreenState extends State<DetailScreen> {
       switch (pubTopic) {
         case Constants.GET_DEVICE:
           tbs = response.id.map((e) => ThietBi.fromJson(e)).toList();
+          tbs.forEach((element) {
+            listtu.add(element.tu);
+          });
+          listtu2 = listtu.toList();
+          print('_DetailScreenState.handle listtu: $listtu2');
           setState(() {});
           hideLoadingDialog();
           break;
@@ -276,8 +430,8 @@ class _DetailScreenState extends State<DetailScreen> {
     double nd = double.tryParse(nhietdo);
     if (nd >= 200) nd = 200;
     return Container(
-      width: 95,
-      height: 95,
+      width: 80,
+      height: 80,
       child: SleekCircularSlider(
         appearance: CircularSliderAppearance(
           customColors: CustomSliderColors(

@@ -77,7 +77,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
                   idController,
                 ),
                 buildTextField(
-                  'vị trí',
+                  'Tên tủ',
                   Icon(Icons.email),
                   TextInputType.text,
                   vitriController,
@@ -88,7 +88,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
                   TextInputType.text,
                   nameController,
                 ),
-                buildDepartment('Mã địa điểm *'),
+                buildDepartment('Mã trạm *'),
                 buildButton(),
               ],
             ),
@@ -252,7 +252,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
     return Container(
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
-          hint: Text("Chọn địa điểm"),
+          hint: Text("Chọn trạm"),
           value: currentSelectedValue,
           isDense: true,
           onChanged: (newValue) {

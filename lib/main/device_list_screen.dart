@@ -17,7 +17,7 @@ class DeviceListScreen extends StatefulWidget {
 }
 
 class _DeviceListScreenState extends State<DeviceListScreen> {
-  static const GET_DEPARTMENT = 'logindiadiem';
+  static const GET_DEPARTMENT = 'logintram';
   static const LOGIN_DEVICE = 'gettb';
 
   final GlobalKey<State> _keyLoader = new GlobalKey<State>();
@@ -35,6 +35,10 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
   @override
   void initState() {
     initMqtt();
+    // tbs.add(ThietBi('TECHNO1', 'h1.32', 'trangthai', '50', 'thoigian', 'mac', 'Tu1'));
+    // tbs.add(ThietBi('TECHNO2', 'h1.32', 'trangthai', '60', 'thoigian', 'mac', 'Tu2'));
+    // tbs.add(ThietBi('TECHNO3', 'h1.33', 'trangthai', '80', 'thoigian', 'mac', 'Tu3'));
+    // tbs.add(ThietBi('TECHNO4', 'h1.33', 'trangthai', '30', 'thoigian', 'mac', 'Tu4'));
     // isLoading = false;
     super.initState();
   }
@@ -120,6 +124,8 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
     return Container(
       child: Column(
         children: [
+          SizedBox(height: 1,),
+          horizontalLine(),
           buildTableTitle(),
           horizontalLine(),
           buildListView(),
@@ -131,17 +137,21 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
 
   Widget buildTableTitle() {
     return Container(
-      color: Colors.yellow,
+      // color: Colors.yellow,
       height: 40,
       child: Row(
         children: [
+          SizedBox(width: 1,),
+          verticalLine(),
           buildTextLabel('STT', 1),
           verticalLine(),
           buildTextLabel('Mã', 4),
           verticalLine(),
           buildTextLabel('Ngưỡng', 2),
           verticalLine(),
-          buildTextLabel('Vị trí', 2),
+          buildTextLabel('Tên tủ', 2),
+          verticalLine(),
+          SizedBox(width: 1,),
         ],
       ),
     );
@@ -190,13 +200,17 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
               height: 40,
               child: Row(
                 children: [
+                  SizedBox(width: 1,),
+                  verticalLine(),
                   buildTextData('${index + 1}', 1),
                   verticalLine(),
                   buildTextData(tbs[index].matb, 4),
                   verticalLine(),
                   buildTextData('${tbs[index].nguongcb}\u2103', 2),
                   verticalLine(),
-                  buildTextData('${tbs[index].vitri}', 2),
+                  buildTextData('${tbs[index].tu}', 2),
+                  verticalLine(),
+                  SizedBox(width: 1,),
                 ],
               ),
             ),
@@ -272,7 +286,7 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
         departments = response.id.map((e) => Department.fromJson(e)).toList();
         dropDownItems.clear();
         departments.forEach((element) {
-          dropDownItems.add(element.madiadiem);
+          dropDownItems.add(element.matram);
         });
         hideLoadingDialog();
         print('_DeviceListScreenState.handleDevice ${dropDownItems.length}');

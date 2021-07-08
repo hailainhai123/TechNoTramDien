@@ -5,21 +5,21 @@ import 'package:floor/floor.dart';
 @entity
 class Department {
   @primaryKey
-  @ColumnInfo(name: 'diachidiadiem', nullable: false)
-  final String diachidiadiem;
-  @ColumnInfo(name: 'madiadiem', nullable: false)
-  final String madiadiem;
-  @ColumnInfo(name: 'sdtdiadiem', nullable: false)
-  final String sdtdiadiem;
+  @ColumnInfo(name: 'diachitram', nullable: false)
+  final String diachitram;
+  @ColumnInfo(name: 'matram', nullable: false)
+  final String matram;
+  @ColumnInfo(name: 'sdttram', nullable: false)
+  final String sdttram;
   @ColumnInfo(name: 'mac', nullable: false)
   String mac;
 
 
-  Department(this.diachidiadiem, this.madiadiem, this.sdtdiadiem, this.mac);
+  Department(this.diachitram, this.matram, this.sdttram, this.mac);
 
   String get departmentDiachiDecode {
     try {
-      String s = diachidiadiem;
+      String s = diachitram;
       List<int> ints = List();
       s = s.replaceAll('[', '');
       s = s.replaceAll(']', '');
@@ -29,20 +29,20 @@ class Department {
       }
       return utf8.decode(ints);
     } catch (e) {
-      return diachidiadiem;
+      return diachitram;
     }
   }
 
   Department.fromJson(Map<String, dynamic> json)
-      : diachidiadiem = json['diachidiadiem'],
-        madiadiem = json['madiadiem'],
-        sdtdiadiem = json['sdtdiadiem'],
+      : diachitram = json['diachitram'],
+        matram = json['matram'],
+        sdttram = json['sdttram'],
         mac = json['mac'];
 
   Map<String, dynamic> toJson() => {
-        'diachidiadiem': diachidiadiem,
-        'madiadiem': madiadiem,
-        'sdtdiadiem': sdtdiadiem,
+        'diachitram': diachitram,
+        'matram': matram,
+        'sdttram': sdttram,
         'mac': mac,
       };
 // Room.fromJson(Map<String, dynamic> json)

@@ -277,7 +277,7 @@ class _DetailPageState extends State<DetailPage>
         departments = response.id.map((e) => Department.fromJson(e)).toList();
         dropDownItems.clear();
         departments.forEach((element) {
-          dropDownItems.add(element.madiadiem);
+          dropDownItems.add(element.matram);
         });
         hideLoadingDialog();
         pubTopic = '';

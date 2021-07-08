@@ -23,7 +23,7 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
-  static const GET_DEPARTMENT = 'logindiadiem';
+  static const GET_DEPARTMENT = 'logintram';
 
   MQTTClientWrapper mqttClientWrapper;
   SharedPrefsHelper sharedPrefsHelper;
@@ -60,6 +60,7 @@ class _AddScreenState extends State<AddScreen> {
       ),
       body:
           isLoading ? Center(child: CircularProgressIndicator()) : buildBody(),
+      // buildBody(),
     );
   }
 
@@ -68,7 +69,7 @@ class _AddScreenState extends State<AddScreen> {
       width: double.infinity,
       child: Column(
         children: [
-          buildButton('Thêm địa điểm ', Icons.meeting_room_outlined, 3),
+          buildButton('Thêm trạm ', Icons.meeting_room_outlined, 3),
           // horizontalLine(),
           // buildButton('Thêm tài khoản', Icons.account_box_outlined, 1),
           horizontalLine(),
@@ -167,7 +168,7 @@ class _AddScreenState extends State<AddScreen> {
     departments = response.id.map((e) => Department.fromJson(e)).toList();
     dropDownItems.clear();
     departments.forEach((element) {
-      dropDownItems.add(element.madiadiem);
+      dropDownItems.add(element.matram);
     });
     hideLoadingDialog();
     print('_AddScreenState.handle ${dropDownItems.length}');

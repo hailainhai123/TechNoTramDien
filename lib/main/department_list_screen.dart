@@ -18,7 +18,7 @@ class DepartmentListScreen extends StatefulWidget {
 }
 
 class _DepartmentListScreenState extends State<DepartmentListScreen> {
-  static const LOGIN_KHOA = 'logindiadiem';
+  static const LOGIN_KHOA = 'logintram';
 
   final GlobalKey<State> _keyLoader = new GlobalKey<State>();
   List<Department> departments = List();
@@ -30,9 +30,13 @@ class _DepartmentListScreenState extends State<DepartmentListScreen> {
 
   @override
   void initState() {
-    departments.add(Department('Hà nội ', 'a1', '012345', 'mac'));
-    initMqtt();
+    // departments.add(Department('Hanoi ', 'h1.32', '012345', 'mac'));
+    // departments.add(Department('Bacninh ', 'h1.33', '012345', 'mac'));
+    // departments.add(Department('Hanoi','h1.32','098763','mac'));
+    // departments.add(Department('ThaiBinh', 'h1.33', '098763', 'mac'));
     // isLoading = false;
+    initMqtt();
+
     super.initState();
   }
 
@@ -89,7 +93,7 @@ class _DepartmentListScreenState extends State<DepartmentListScreen> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text('Danh sách địa điểm'),
+          title: Text('Danh sách trạm'),
           centerTitle: true,
         ),
         body: isLoading
@@ -114,17 +118,17 @@ class _DepartmentListScreenState extends State<DepartmentListScreen> {
 
   Widget buildTableTitle() {
     return Container(
-      color: Colors.yellow,
+      // color: Colors.yellow,
       height: 40,
       child: Row(
         children: [
           buildTextLabel('STT', 1),
           verticalLine(),
-          buildTextLabel('Mã', 3),
+          buildTextLabel('Mã', 2),
           verticalLine(),
-          buildTextLabel('Địa chỉ', 4),
+          buildTextLabel('Địa chỉ', 3),
           verticalLine(),
-          buildTextLabel('Sđt', 4),
+          buildTextLabel('Sđt', 3),
           verticalLine(),
           buildTextLabel('Sửa', 1),
         ],
@@ -164,7 +168,7 @@ class _DepartmentListScreenState extends State<DepartmentListScreen> {
         navigatorPush(
             context,
             DetailScreen(
-              madiadiem: departments[index].madiadiem,
+              matram: departments[index].matram,
             ));
       },
       child: Container(
@@ -177,12 +181,12 @@ class _DepartmentListScreenState extends State<DepartmentListScreen> {
                 children: [
                   buildTextData('${index + 1}', 1),
                   verticalLine(),
-                  buildTextData(departments[index].madiadiem ?? '', 3),
+                  buildTextData(departments[index].matram ?? '', 2),
                   verticalLine(),
                   buildTextData(
-                      departments[index].departmentDiachiDecode ?? '', 4),
+                      departments[index].departmentDiachiDecode ?? '', 3),
                   verticalLine(),
-                  buildTextData(departments[index].sdtdiadiem ?? '', 4),
+                  buildTextData(departments[index].sdttram ?? '', 3),
                   verticalLine(),
                   buildEditBtn(index, 1),
                 ],
@@ -198,7 +202,7 @@ class _DepartmentListScreenState extends State<DepartmentListScreen> {
   Widget buildEditBtn(int index, int flex) {
     return Expanded(
       child: IconButton(
-          icon: Icon(Icons.edit),
+          icon: Icon(Icons.edit, color: Colors.black,),
           onPressed: () async {
             await showDialog(
                 barrierDismissible: false,

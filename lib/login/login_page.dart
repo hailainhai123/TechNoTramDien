@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_care/Widget/bezierContainer.dart';
 import 'package:health_care/addWidget/patient_page.dart';
+import 'package:health_care/helper/constants.dart';
 import 'package:health_care/helper/loader.dart';
 import 'package:health_care/helper/models.dart';
 import 'package:health_care/helper/shared_prefs_helper.dart';
@@ -64,18 +65,23 @@ class _LoginPageState extends State<LoginPage> {
     // mqttClientWrapper =
     //     MQTTClientWrapper(() => print('Success'), (message) => login(message));
     // mqttClientWrapper.prepareMqttClient(Constants.mac);
+
     sharedPrefsHelper = SharedPrefsHelper();
     getSharedPrefs();
   }
 
   void initOneSignal(oneSignalAppId) async {
-    status = await OneSignal.shared.getPermissionSubscriptionState();
-
     var settings = {
       OSiOSSettings.autoPrompt: true,
       OSiOSSettings.inAppLaunchUrl: true
     };
-    OneSignal.shared.init(oneSignalAppId, iOSSettings: settings);
+    OneSignal.shared.init(
+      one_signal_app_id,
+      iOSSettings: settings,
+    );
+
+    status = await OneSignal.shared.getPermissionSubscriptionState();
+
     OneSignal.shared
         .setInFocusDisplayType(OSNotificationDisplayType.notification);
 // will be called whenever a notification is received
@@ -94,12 +100,13 @@ class _LoginPageState extends State<LoginPage> {
     mqttClientWrapper =
         MQTTClientWrapper(() => print('Success'), (message) => login(message));
     await mqttClientWrapper.prepareMqttClient(Constants.mac);
+    print('_LoginPageState.initMqtt MAC: ${Constants.mac}');
   }
 
   Future<void> getSharedPrefs() async {
     _emailController.text = await sharedPrefsHelper.getStringValuesSF('email');
     _passwordController.text =
-        await sharedPrefsHelper.getStringValuesSF('password');
+    await sharedPrefsHelper.getStringValuesSF('password');
     _switchValue = await sharedPrefsHelper.getBoolValuesSF('switchValue');
     if (_emailController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty) {
@@ -132,18 +139,19 @@ class _LoginPageState extends State<LoginPage> {
     print('_LoginPageState.initOneSignal playerID: $playerid');
     User user = User(Constants.mac, _emailController.text,
         _passwordController.text, '', '', '', '', '', playerid);
-
-    if (mqttClientWrapper.connectionState ==
-        MqttCurrentConnectionState.CONNECTED) {
-      if (switchValue) {
-        mqttClientWrapper.patientLogin(user);
-      } else {
-        mqttClientWrapper.login(user);
-      }
-    } else {
-      await initMqtt();
-      mqttClientWrapper.login(user);
-    }
+    await initMqtt();
+    mqttClientWrapper.login(user);
+    // if (mqttClientWrapper.connectionState ==
+    //     MqttCurrentConnectionState.CONNECTED) {
+    //   if (switchValue) {
+    //     mqttClientWrapper.patientLogin(user);
+    //   } else {
+    //     mqttClientWrapper.login(user);
+    //   }
+    // } else {
+    //   await initMqtt();
+    //   mqttClientWrapper.login(user);
+    // }
   }
 
   Future<void> login(String message) async {

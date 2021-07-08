@@ -47,13 +47,13 @@ class _DepartmentListDialogState extends State<DepartmentListDialog> {
       child: Row(
         children: [
           Text(
-            department.madiadiem,
+            department.matram,
           ),
           Text(
             department.departmentDiachiDecode,
           ),
           Text(
-            department.sdtdiadiem,
+            department.sdttram,
           ),
         ],
       ),

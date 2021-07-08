@@ -185,6 +185,22 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  Widget _header() {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 42.0,
+      ),
+      child: Container(
+        height: 50,
+        width: 50,
+        child: Image.asset(
+          "assets/images/ic_flame_warning.png",
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
   Widget _dropDownDepartment() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -271,8 +287,8 @@ class _SignUpPageState extends State<SignUpPage> {
         _entryField("Tên", _nameController),
         _entryField("SĐT", _phoneNumberController),
         _entryField("Địa chỉ", _addressController),
-        _dropDownPermission(),
-        _dropDownDepartment(),
+        // _dropDownPermission(),
+        // _dropDownDepartment(),
       ],
     );
   }
@@ -298,7 +314,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(height: height * .1),
-                    _title(),
+                    // _title(),
+                    _header(),
                     SizedBox(
                       height: 30,
                     ),

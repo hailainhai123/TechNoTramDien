@@ -248,7 +248,7 @@ class _UserListScreenState extends State<UserListScreen> {
         departments = response.id.map((e) => Department.fromJson(e)).toList();
         dropDownItems.clear();
         departments.forEach((element) {
-          dropDownItems.add(element.madiadiem);
+          dropDownItems.add(element.matram);
         });
         hideLoadingDialog();
         await showDialog(
@@ -264,7 +264,7 @@ class _UserListScreenState extends State<UserListScreen> {
                     children: [
                       EditUserDialog(
                         user: users[selectedIndex],
-                        dropDownItems: dropDownItems,
+                        // dropDownItems: dropDownItems,
                         deleteCallback: (param) => {
                           getUsers(),
                           // removeUser(selectedIndex),
