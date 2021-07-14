@@ -211,14 +211,6 @@ class _EditUserDialogState extends State<EditUserDialog>
                 TextInputType.text,
                 addressController,
               ),
-              // buildTextField(
-              //   'Khoa',
-              //   Icon(Icons.location_city),
-              //   TextInputType.text,
-              //   departmentController,
-              // ),
-              // buildPermissionContainer('Quyền'),
-              // widget.user.quyen == '1' ? Container() : buildDepartment(),
               deleteButton(),
               buildButton(),
             ],
@@ -228,62 +220,6 @@ class _EditUserDialogState extends State<EditUserDialog>
     );
   }
 
-  Widget buildPermissionContainer(String label) {
-    return Container(
-      height: 44,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-          5,
-        ),
-        border: Border.all(
-          color: Colors.green,
-        ),
-      ),
-      margin: const EdgeInsets.symmetric(
-        horizontal: 32,
-        vertical: 8,
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-              child: Text(
-                label,
-                style: TextStyle(fontSize: 16),
-              )),
-          Expanded(
-            child: dropDownPermission(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget dropDownPermission() {
-    var permissionValue = ['1', '2'];
-    return Container(
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          hint: Text("Chọn quyền"),
-          value: permission,
-          isDense: true,
-          onChanged: (newValue) {
-            setState(() {
-              permission = newValue;
-            });
-            print(permission);
-          },
-          items: permissionValue.map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ),
-      ),
-    );
-  }
 
   Widget buildTextField(
       String labelText,
@@ -450,7 +386,6 @@ class _EditUserDialogState extends State<EditUserDialog>
       currentSelectedValue,
       permission,
       '',
-      // maph: emailController.text,
     );
     updatedUser.iduser = await sharedPrefsHelper.getStringValuesSF('iduser');
     publishMessage(pubTopic, jsonEncode(updatedUser));
@@ -467,7 +402,6 @@ class _EditUserDialogState extends State<EditUserDialog>
       currentSelectedValue,
       permission,
       '',
-      // maph: emailController.text,
     );
     updatedUser.passmoi = newPasswordController.text;
     updatedUser.iduser = await sharedPrefsHelper.getStringValuesSF('iduser');

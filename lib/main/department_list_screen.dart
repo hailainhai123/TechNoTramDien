@@ -221,14 +221,9 @@ class _DepartmentListScreenState extends State<DepartmentListScreen> {
                               print(
                                   '_DepartmentListScreenState.itemView $department');
                               getDepartments();
-                              // departments.removeAt(index);
-                              // departments.insert(index, department);
-                              // setState(() {});
                             },
                             deleteCallback: (a) {
                               getDepartments();
-                              // departments.removeAt(index);
-                              // setState(() {});
                             },
                           ),
                           Positioned(
@@ -327,14 +322,12 @@ class _DepartmentListScreenState extends State<DepartmentListScreen> {
     setState(() {
       isLoading = true;
     });
-    // Dialogs.showLoadingDialog(context, _keyLoader);
   }
 
   void hideLoadingDialog() {
     setState(() {
       isLoading = false;
     });
-    // Navigator.of(_keyLoader.currentContext, rootNavigator: true).pop();
   }
 
   @override

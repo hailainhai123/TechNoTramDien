@@ -56,13 +56,9 @@ class _DetailScreenState extends State<DetailScreen> {
 
   void getDevices() async {
     ThietBi t = ThietBi('', widget.matram, '', '', '', Constants.mac, '');
-    // t.mathietbi = email;
     pubTopic = Constants.GET_DEVICE;
     publishMessage(pubTopic, jsonEncode(t));
     showLoadingDialog();
-
-    // tbs = createSampleDevices();
-    // isLoading = false;
   }
 
   Future<void> publishMessage(String topic, String message) async {
@@ -194,14 +190,11 @@ class _DetailScreenState extends State<DetailScreen> {
                 color: tb.color ?? Colors.black,
               ),
             ),
-            // SizedBox(height: 10),
             sleek(tb.nhietdo ?? "0"),
-            // SizedBox(height: 5),
             Text(
               tb.trangthai ?? 'offline',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                // color: tb.color ?? Colors.black,
                 color: Colors.black,
               ),
             ),
@@ -352,11 +345,6 @@ class _DetailScreenState extends State<DetailScreen> {
         } else {
           print('_DetailScreenState.initMqtt false');
         }
-        // if (element.trangthai == '0'){
-        //   element.trangthai = 'offline';
-        // } else {
-        //   element.trangthai = 'online';
-        // }
       });
     });
   }
@@ -418,9 +406,6 @@ class _DetailScreenState extends State<DetailScreen> {
                   return '$roundedValue \u2103';
                 }),
           ),
-          // onChange: (double value) {
-          //   print(value);
-          // }
         ),
       ),
     );
@@ -457,129 +442,5 @@ class _DetailScreenState extends State<DetailScreen> {
       ),
     );
   }
-
-// void _showChooseProduct() {
-//   showDialog(
-//     context: context,
-//     builder: (BuildContext context) {
-//       return AlertDialog(
-//         title: new Text("Chọn sản phẩm"),
-//         content: Container(
-//           height: 200,
-//           width: 200,
-//           child: Column(
-//             children: <Widget>[
-//               Text("Chọn sản phẩm để cân"),
-//               StatefulBuilder(
-//                 builder: (context, dropDownState) {
-//                   return DropdownButton<String>(
-//                     value: _selectedProduct,
-//                     underline: Container(),
-//                     items: dropDownProducts.map((String value) {
-//                       return new DropdownMenuItem<String>(
-//                         value: value,
-//                         child: new Text(
-//                           value,
-//                           style: TextStyle(fontWeight: FontWeight.w500),
-//                         ),
-//                       );
-//                     }).toList(),
-//                     onChanged: (String value) {
-//                       dropDownState(() {
-//                         _selectedProduct = value;
-//                         var s = ScaleRequest(email, _selectedProduct);
-//                         // publishMessage(_selectedDevice, jsonEncode(s));
-//                       });
-//                     },
-//                   );
-//                 },
-//               ),
-//               // StatefulBuilder(
-//               //   builder: (context, radioState) {
-//               //     return Column(
-//               //       children: [
-//               //         ListTile(
-//               //           title: Text('Xuất Kho '),
-//               //           leading: Radio(
-//               //             value: ListXuatNhap.xuatKho,
-//               //             groupValue: _site,
-//               //             onChanged: (ListXuatNhap value) {
-//               //               radioState(() {
-//               //                 _site = value;
-//               //               });
-//               //             },
-//               //           ),
-//               //         ),
-//               //         // ListTile(
-//               //         //   title: Text('Nhập Kho '),
-//               //         //   leading: Radio(
-//               //         //     value: ListXuatNhap.nhapKho,
-//               //         //     groupValue: _site,
-//               //         //     onChanged: (ListXuatNhap value) {
-//               //         //       radioState(() {
-//               //         //         _site = value;
-//               //         //       });
-//               //         //     },
-//               //         //   ),
-//               //         // ),
-//               //       ],
-//               //     );
-//               //   },
-//               // ),
-//
-//               // StatefulBuilder(
-//               //   builder: (context, dropDownState) {
-//               //     return new DropdownButton(
-//               //       items: new List.generate(20, (int index) {
-//               //         return new DropdownMenuItem(
-//               //           child: Container(
-//               //             child: new Text("Item#$index"),
-//               //             width: 200.0, //200.0 to 100.0
-//               //           ),
-//               //         );
-//               //       }),
-//               //     );
-//               //   },
-//               // ),
-//             ],
-//           ),
-//         ),
-//         actions: <Widget>[
-//           // usually buttons at the bottom of the dialog
-//           FlatButton(
-//             child: new Text("Đóng"),
-//             onPressed: () {
-//               Navigator.of(context).pop();
-//             },
-//           ),
-//         ],
-//       );
-//     },
-//   );
-// }
 }
 
-ScaleResponse scaleResponseFromJson(String str) =>
-    ScaleResponse.fromJson(json.decode(str));
-
-String scaleResponseToJson(ScaleResponse data) => json.encode(data.toJson());
-
-class ScaleResponse {
-  ScaleResponse({
-    this.matb,
-    this.nhietdo,
-  });
-
-  String matb;
-  String nhietdo;
-
-  factory ScaleResponse.fromJson(Map<String, dynamic> json) => ScaleResponse(
-        matb: json["matb"],
-        nhietdo: json["nhietdo"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "matb": matb,
-        "nhietdo": nhietdo,
-      };
-}

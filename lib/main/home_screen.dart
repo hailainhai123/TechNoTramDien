@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/addWidget/add_page.dart';
-import 'package:health_care/addWidget/add_patient_page.dart';
 import 'package:health_care/helper/bottom_navigation_bar.dart';
 import 'package:health_care/helper/constants.dart';
 import 'package:health_care/helper/shared_prefs_helper.dart';
 import 'package:health_care/main/department_list_screen.dart';
-import 'package:health_care/main/detail_page.dart';
 import 'package:health_care/main/detail_screen.dart';
 import 'package:health_care/main/device_list_screen.dart';
-import 'package:health_care/main/home_page.dart';
-import 'package:health_care/main/user_list_screen.dart';
 import 'package:health_care/main/user_profile_page.dart';
-
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key, this.loginResponse, this.index}) : super(key: key);
@@ -40,23 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     sharedPrefsHelper = SharedPrefsHelper();
-    // initBottomBarItems(loginResponse['quyen']);
-     initBottomBarItems(1);
-
-    // initWidgetOptions(loginResponse['quyen']);
+    initBottomBarItems(1);
     initWidgetOptions(1);
-    // sharedPrefsHelper.addStringToSF('khoa', loginResponse['khoa']);
-    // if (widget.index == null) {
-    //   _selectedIndex = 0;
-    // } else {
-    //   _selectedIndex = widget.index;
-    // }
-    // getPermission();
     super.initState();
   }
 
   void getPermission() async {
-    // quyen = await sharedPrefsHelper.getIntValuesSF('quyen');
     quyen = 1;
     print(
         '_HomeScreenState.getPermission ${quyen.runtimeType} - $_selectedIndex');
@@ -69,18 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
     switch (quyen) {
       case 1:
         bottomBarItems = [
-          // BottomNavigationBarItem(
-          //   icon: Icon(
-          //     Icons.account_circle_outlined,
-          //   ),
-          //   label: 'Tài khoản',
-          // ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(
-          //     Icons.details,
-          //   ),
-          //   label: 'Cảnh báo',
-          // ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.menu,
@@ -93,12 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             label: 'Trạm',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(
-          //     Icons.details,
-          //   ),
-          //   label: 'Giám sát',
-          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
             label: 'Thêm',
@@ -147,14 +113,6 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Cá nhân',
           ),
         ];
-
-        items = [
-          CustomBottomNavigationItem(icon: Icons.details, label: 'Cảnh báo'),
-          CustomBottomNavigationItem(icon: Icons.menu, label: 'Danh sách'),
-          CustomBottomNavigationItem(icon: Icons.add, label: 'Thêm'),
-          CustomBottomNavigationItem(
-              icon: Icons.account_box_outlined, label: 'Cá nhân'),
-        ];
         break;
     }
   }
@@ -164,24 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
     switch (quyen) {
       case 1:
         _widgetOptions = <Widget>[
-          // UserListScreen(
-          //   response: loginResponse,
-          // ),
-          // HomePage(),
           DeviceListScreen(),
           DepartmentListScreen(),
-          // DetailScreen(),
           AddScreen(),
-          UserProfilePage(
-            switchValue: false,
-          ),
-        ];
-        break;
-      case 2:
-        _widgetOptions = <Widget>[
-          HomePage(),
-          DetailPage(),
-          AddPatientScreen(),
           UserProfilePage(
             switchValue: false,
           ),
@@ -226,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: BottomNavigationBar(
         showSelectedLabels: true,
-        showUnselectedLabels: false,
+        showUnselectedLabels: true,
         items: bottomBarItems,
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.white,
@@ -235,33 +178,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget buildBottomNavigator(int currentIndex) {
-    return AnimatedSwitcher(
-      duration: Duration(milliseconds: 200),
-      child: Container(
-        margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
-        child: Card(
-          elevation: 5,
-          color: BACKGROUND_COLOR,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            height: 60,
-            child: CustomBottomNavigationBar(
-              selectedItemColor: FORE_TEXT_COLOR,
-              overlayColor: PRIMARY_COLOR,
-              currentIndex: currentIndex,
-              backgroundColor: Colors.transparent,
-              onChange: (index) {
-                _selectedIndex = index;
-                // changePageViewPage(index);
-              },
-              children: items,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }

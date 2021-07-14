@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:health_care/addWidget/add_account_page.dart';
 import 'package:health_care/addWidget/add_department_page.dart';
 import 'package:health_care/addWidget/add_device_page.dart';
 import 'package:health_care/helper/models.dart';
@@ -69,11 +68,9 @@ class _AddScreenState extends State<AddScreen> {
       width: double.infinity,
       child: Column(
         children: [
-          buildButton('Thêm trạm ', Icons.meeting_room_outlined, 3),
-          // horizontalLine(),
-          // buildButton('Thêm tài khoản', Icons.account_box_outlined, 1),
+          buildButton('Thêm trạm ', Icons.meeting_room_outlined, 2),
           horizontalLine(),
-          buildButton('Thêm thiết bị', Icons.devices, 2),
+          buildButton('Thêm thiết bị', Icons.devices, 1),
         ],
       ),
     );
@@ -88,24 +85,13 @@ class _AddScreenState extends State<AddScreen> {
       onTap: () {
         switch (option) {
           case 1:
-            if (dropDownItems.isEmpty) {
-              showPopup(context);
-            } else {
-              navigatorPush(
-                  context,
-                  AddAccountScreen(
-                    dropDownItems: dropDownItems,
-                  ));
-            }
-            break;
-          case 2:
               navigatorPush(
                   context,
                   AddDeviceScreen(
                     dropDownItems: dropDownItems,
                   ));
             break;
-          case 3:
+          case 2:
             navigatorPush(context, AddDepartmentScreen());
             break;
         }
@@ -117,19 +103,6 @@ class _AddScreenState extends State<AddScreen> {
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.transparent,
-          // borderRadius: BorderRadius.circular(
-          //   10,
-          // ),
-          // border: Border.all(
-          //   color: Colors.grey,
-          // ),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.transparent,
-          //     offset: Offset(0.0, 0.1), //(x,y)
-          //     blurRadius: 6.0,
-          //   )
-          // ],
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -196,16 +169,5 @@ class _AddScreenState extends State<AddScreen> {
       await initMqtt();
       mqttClientWrapper.publishMessage(topic, message);
     }
-  }
-
-  void showPopup(context) {
-    showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              backgroundColor: Colors.transparent,
-              content: Text(
-                'Chưa có khoa',
-              ),
-            ));
   }
 }

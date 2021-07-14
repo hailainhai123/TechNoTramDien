@@ -4,13 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_care/Widget/bezierContainer.dart';
-import 'package:health_care/addWidget/patient_page.dart';
 import 'package:health_care/helper/constants.dart';
 import 'package:health_care/helper/loader.dart';
 import 'package:health_care/helper/models.dart';
 import 'package:health_care/helper/shared_prefs_helper.dart';
 import 'package:health_care/main/home_screen.dart';
-import 'package:health_care/model/patient_response.dart';
 import 'package:health_care/model/user.dart';
 import 'package:health_care/navigator.dart';
 import 'package:health_care/response/device_response.dart';
@@ -62,9 +60,6 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     initMqtt();
     initOneSignal(Constants.one_signal_app_id);
-    // mqttClientWrapper =
-    //     MQTTClientWrapper(() => print('Success'), (message) => login(message));
-    // mqttClientWrapper.prepareMqttClient(Constants.mac);
 
     sharedPrefsHelper = SharedPrefsHelper();
     getSharedPrefs();
@@ -141,17 +136,6 @@ class _LoginPageState extends State<LoginPage> {
         _passwordController.text, '', '', '', '', '', playerid);
     await initMqtt();
     mqttClientWrapper.login(user);
-    // if (mqttClientWrapper.connectionState ==
-    //     MqttCurrentConnectionState.CONNECTED) {
-    //   if (switchValue) {
-    //     mqttClientWrapper.patientLogin(user);
-    //   } else {
-    //     mqttClientWrapper.login(user);
-    //   }
-    // } else {
-    //   await initMqtt();
-    //   mqttClientWrapper.login(user);
-    // }
   }
 
   Future<void> login(String message) async {
@@ -182,58 +166,20 @@ class _LoginPageState extends State<LoginPage> {
           'password', _passwordController.text);
       await sharedPrefsHelper.addBoolToSF('switchValue', _switchValue);
       await sharedPrefsHelper.addBoolToSF('login', true);
-      await sharedPrefsHelper.addIntToSF('quyen', responseMap['quyen']);
-      if (switchValue) {
-        final response = patientResponseFromJson(message);
-        if (response.patients.length > 0) {
-          if (response.patients[0].trangthaibn == '1') {
-            Dialogs.showAlertDialog(context, 'Bệnh nhân đã ra viện!');
-          } else {
-            navigatorPushAndRemoveUntil(
-                context,
-                PatientPage(
-                  patientResponse: response,
-                ));
-          }
-        }
-      } else {
-        navigatorPushAndRemoveUntil(
-          context,
-          HomeScreen(
-            loginResponse: responseMap,
-          ),
-        );
-      }
+      navigatorPushAndRemoveUntil(
+        context,
+        HomeScreen(
+          loginResponse: responseMap,
+        ),
+      );
     } else {
       this._showToast(context);
-      // Scaffold.of(context).showSnackBar(snackbar);
     }
   }
 
   void _showToast(BuildContext context) {
     Dialogs.showAlertDialog(
         context, 'Đăng nhập thất bại, vui lòng thử lại sau!');
-  }
-
-  Widget _backButton() {
-    return InkWell(
-      onTap: () {
-        Navigator.pop(context);
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: Icon(Icons.keyboard_arrow_left, color: Colors.black),
-            ),
-            Text('Back',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
-          ],
-        ),
-      ),
-    );
   }
 
   Widget _entryField(String title, TextEditingController _controller,
